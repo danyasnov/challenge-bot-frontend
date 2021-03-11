@@ -1,58 +1,60 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useEffect } from "react"
+import "./App.css"
+import "antd/dist/antd.css"
+import { Layout, Menu } from "antd"
+import { Link, Router, useLocation, Redirect } from "@reach/router"
+import { useDispatch } from "react-redux"
+import Tasks from "./components/Tasks"
+import Marathons from "./components/Marathons"
+import { fetchTasks } from "./app/taskSlice"
+import { fetchMarathons } from "./app/marathonSlice"
+
+const { Content, Sider } = Layout
 
 function App() {
+  const location = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchTasks())
+    dispatch(fetchMarathons())
+  }, [dispatch])
+  let defaultSelectedKey
+  if (location.pathname === "/marathons") {
+    defaultSelectedKey = "1"
+  } else if (location.pathname === "/tasks") {
+    defaultSelectedKey = "2"
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+    <Layout>
+      <Content style={{ padding: "0 50px" }}>
+        <Layout style={{ padding: "24px 0" }}>
+          <Sider width={200}>
+            <Menu
+              defaultSelectedKeys={[defaultSelectedKey]}
+              mode="inline"
+              theme="dark"
+            >
+              <Menu.Item key="1">
+                <Link to="marathons">Марафоны</Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="tasks">Упражнения</Link>
+              </Menu.Item>
+            </Menu>
+          </Sider>
+          <Content style={{ padding: "0 24px", minHeight: 280 }}>
+            <Router>
+              <Marathons path="marathons" />
+              <Tasks path="tasks" />
+            </Router>
+          </Content>
+        </Layout>
+      </Content>
+      {/* <Redirect from="/" to="/marathons" noThrow /> */}
+    </Layout>
+  )
 }
 
-export default App;
+export default App
