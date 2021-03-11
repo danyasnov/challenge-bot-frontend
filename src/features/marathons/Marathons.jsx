@@ -9,7 +9,7 @@ import {
   removeOneMarathon,
   selectMarathon,
   updateOneMarathon,
-} from "../app/marathonSlice"
+} from "./marathonSlice"
 
 function Marathons() {
   const marathons = useSelector(selectMarathon.selectAll)

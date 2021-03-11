@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit"
 import logger from "redux-logger"
-import counterReducer from "../features/counter/counterSlice"
-import tasksReducer from "./taskSlice"
-import marathonsReducer from "./marathonSlice"
+import tasksReducer from "./tasks/taskSlice"
+import marathonsReducer from "./marathons/marathonSlice"
+import usersReducer from "./users/userSlice"
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
     tasks: tasksReducer,
     marathons: marathonsReducer,
+    users: usersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(logger),

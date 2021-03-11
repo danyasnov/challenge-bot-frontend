@@ -10,7 +10,7 @@ import {
   selectTask,
   taskLoading,
   updateOneTask,
-} from "../app/taskSlice"
+} from "./taskSlice"
 
 function Tasks() {
   const [showModal, setShowModal] = useState(false)

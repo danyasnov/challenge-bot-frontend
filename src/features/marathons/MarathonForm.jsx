@@ -16,8 +16,8 @@ import {
 import moment from "moment"
 import { useSelector } from "react-redux"
 import { get } from "lodash"
-import { selectMarathon } from "../app/marathonSlice"
-import { selectTask } from "../app/taskSlice"
+import { selectMarathon } from "./marathonSlice"
+import { selectTask } from "../tasks/taskSlice"
 
 const { Option } = Select
 const { RangePicker } = DatePicker

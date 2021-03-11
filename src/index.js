@@ -7,9 +7,10 @@ import axios from "axios"
 import { toast, ToastContainer } from "react-toastify"
 import { Router, navigate } from "@reach/router"
 import * as serviceWorker from "./serviceWorker"
-import store from "./app/store"
+import store from "./features/store"
 import App from "./App"
-import Login from "./components/Login"
+import Login from "./features/auth/Login"
+import "react-toastify/dist/ReactToastify.css"
 
 axios.interceptors.response.use(
   (response) =>
@@ -23,7 +24,7 @@ axios.interceptors.response.use(
     if (status === 401) {
       navigate("/login")
     } else {
-      toast(error.response.data.message)
+      toast(`Ошибка \n ${JSON.stringify(error.response.data)}`)
     }
 
     return Promise.reject(error)
