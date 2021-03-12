@@ -58,11 +58,12 @@ function Users() {
       title: "Подтвержденный участник",
       dataIndex: "approved",
       key: "approved",
-      render: (text, record) => (
-        <div>
-          {record.marathons.map((m) => marathonsEntities[m].title).join(", ")}
-        </div>
-      ),
+      render: (text, record) => {
+        const str️ = record.marathons.length
+          ? record.marathons.map((m) => marathonsEntities[m].title).join(", ")
+          : "Не подтвержден ❌"
+        return <div>{str️}</div>
+      },
     },
     {
       title: "Действия",

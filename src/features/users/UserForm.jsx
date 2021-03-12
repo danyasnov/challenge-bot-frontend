@@ -8,9 +8,7 @@ const { Option } = Select
 const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
   const [form] = Form.useForm()
   const marathons = useSelector(selectMarathon.selectAll)
-  const marathonsEntities = useSelector(selectMarathon.selectEntities)
 
-  console.log(marathonsEntities)
   useEffect(() => {
     form.resetFields()
   }, [form, item])
@@ -58,10 +56,6 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
               ))}
             </Select>
           </Form.Item>
-
-          {/* <Form.Item label="Описание" name="description"> */}
-          {/*  <Input /> */}
-          {/* </Form.Item> */}
         </Form>
       )}
     </Modal>
