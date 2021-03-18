@@ -27,7 +27,6 @@ function App() {
     "/tasks": "2",
     "/users": "3",
   }
-  console.log(routerDict[location.pathname])
 
   return (
     <Layout>

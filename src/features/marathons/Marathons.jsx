@@ -74,7 +74,11 @@ function Marathons() {
 
   return (
     <Layout>
-      <Button type="primary" onClick={() => setShowModal(true)}>
+      <Button
+        type="primary"
+        onClick={() => setShowModal(true)}
+        disabled={marathons.length}
+      >
         <PlusOutlined /> Новый марафон
       </Button>
       <Table dataSource={marathons} columns={columns} rowKey="_id" />

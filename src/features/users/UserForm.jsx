@@ -52,7 +52,9 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
               }
             >
               {marathons.map((m) => (
-                <Option value={m._id}>{m.title}</Option>
+                <Option value={m._id} key={m._id}>
+                  {m.title}
+                </Option>
               ))}
             </Select>
           </Form.Item>

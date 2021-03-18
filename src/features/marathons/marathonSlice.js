@@ -6,7 +6,7 @@ import {
 import axios from "axios"
 import moment from "moment"
 
-const url = "/marathons"
+const url = "/api/marathons"
 
 const deserializeItem = (i) => ({
   ...i,

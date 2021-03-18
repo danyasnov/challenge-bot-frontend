@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit"
 import axios from "axios"
 
-const url = "/users"
+const url = "/api/users"
 export const fetchUsers = createAsyncThunk("users/fetchAll", async () => {
   const response = await axios.get(url)
   return response.data

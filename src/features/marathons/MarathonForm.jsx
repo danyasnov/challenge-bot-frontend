@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   Layout,
   Menu,
@@ -31,6 +31,10 @@ const MarathonForm = ({ onSave, onCancel, isLoading, item = {} }) => {
   )
   const tasks = useSelector(selectTask.selectAll)
   const taskEntities = useSelector(selectTask.selectEntities)
+
+  useEffect(() => {
+    form.resetFields()
+  }, [form, item])
 
   const handleChangeEvent = (task, date) => {
     const currentEvent = events.find((e) => e.date.isSame(date, "day"))
