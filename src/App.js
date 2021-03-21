@@ -27,7 +27,7 @@ function App() {
     "/tasks": "2",
     "/users": "3",
   }
-
+  if (location.pathname === "/") return <Redirect to="/marathons" noThrow />
   return (
     <Layout>
       <Content style={{ padding: "0 50px" }}>
@@ -58,7 +58,6 @@ function App() {
           </Content>
         </Layout>
       </Content>
-      {/* <Redirect from="/" to="/marathons" noThrow /> */}
     </Layout>
   )
 }

@@ -8,6 +8,9 @@ const { Option } = Select
 const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
   const [form] = Form.useForm()
   const marathons = useSelector(selectMarathon.selectAll)
+  const initial = {
+    marathons: item.marathons.map((m) => m.id),
+  }
 
   useEffect(() => {
     form.resetFields()
@@ -37,7 +40,7 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
           form={form}
           layout="vertical"
           name="form_in_modal"
-          initialValues={item}
+          initialValues={initial}
         >
           <Form.Item label="Марафоны" name="marathons">
             <Select

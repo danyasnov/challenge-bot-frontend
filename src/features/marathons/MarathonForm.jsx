@@ -32,10 +32,6 @@ const MarathonForm = ({ onSave, onCancel, isLoading, item = {} }) => {
   const tasks = useSelector(selectTask.selectAll)
   const taskEntities = useSelector(selectTask.selectEntities)
 
-  useEffect(() => {
-    form.resetFields()
-  }, [form, item])
-
   const handleChangeEvent = (task, date) => {
     const currentEvent = events.find((e) => e.date.isSame(date, "day"))
     if (!task) {
@@ -132,10 +128,13 @@ const MarathonForm = ({ onSave, onCancel, isLoading, item = {} }) => {
           <RangePicker
             ranges={range}
             onChange={(r) => {
+              console.log(r)
               setRange(r)
               setSelectedDate(r ? r[0] : null)
             }}
-            disabledDate={(c) => c && c < moment().endOf("day")}
+            disabledDate={(c) =>
+              c && c < moment().subtract(1, "days").endOf("day")
+            }
           />
         </Form.Item>
         {range && (
@@ -146,19 +145,6 @@ const MarathonForm = ({ onSave, onCancel, isLoading, item = {} }) => {
             value={selectedDate}
           />
         )}
-
-        {/* <Form.Item */}
-        {/*  label="URL" */}
-        {/*  name="url" */}
-        {/*  rules={[ */}
-        {/*    { */}
-        {/*      required: true, */}
-        {/*      message: "Введите URL!", */}
-        {/*    }, */}
-        {/*  ]} */}
-        {/* > */}
-        {/*  <Input /> */}
-        {/* </Form.Item> */}
       </Form>
     </Modal>
   )

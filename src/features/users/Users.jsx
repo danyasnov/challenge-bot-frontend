@@ -3,6 +3,7 @@ import { Layout, Table, Button } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { pick } from "lodash"
 import { useDispatch, useSelector } from "react-redux"
+import moment from "moment"
 import UserForm from "./UserForm"
 import {
   addOneUser,
@@ -22,7 +23,12 @@ function Users() {
   const dispatch = useDispatch()
 
   const onSave = (values) => {
-    const data = pick(values, ["marathons"])
+    const data = {
+      marathons: values.marathons.map((m) => ({
+        id: m,
+        progress: moment(marathonsEntities[m].range[0]).subtract(1, "days"),
+      })),
+    }
     const promise = item
       ? dispatch(updateOneUser({ ...data, _id: item._id }))
       : dispatch(addOneUser(data))
@@ -60,7 +66,9 @@ function Users() {
       key: "approved",
       render: (text, record) => {
         const str️ = record.marathons.length
-          ? record.marathons.map((m) => marathonsEntities[m].title).join(", ")
+          ? record.marathons
+              .map(({ id }) => marathonsEntities[id]?.title)
+              .join(", ")
           : "Не подтвержден ❌"
         return <div>{str️}</div>
       },
@@ -95,16 +103,18 @@ function Users() {
   return (
     <Layout>
       <Table dataSource={users} columns={columns} rowKey="_id" />
-      <UserForm
-        visible={showModal}
-        onSave={onSave}
-        isLoading={isLoading}
-        item={item}
-        onCancel={() => {
-          setShowModal(false)
-          setItem()
-        }}
-      />
+      {showModal && (
+        <UserForm
+          visible={showModal}
+          onSave={onSave}
+          isLoading={isLoading}
+          item={item}
+          onCancel={() => {
+            setShowModal(false)
+            setItem()
+          }}
+        />
+      )}
     </Layout>
   )
 }
