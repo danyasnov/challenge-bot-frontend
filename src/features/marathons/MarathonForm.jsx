@@ -128,7 +128,6 @@ const MarathonForm = ({ onSave, onCancel, isLoading, item = {} }) => {
           <RangePicker
             ranges={range}
             onChange={(r) => {
-              console.log(r)
               setRange(r)
               setSelectedDate(r ? r[0] : null)
             }}

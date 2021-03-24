@@ -76,7 +76,10 @@ function Tasks() {
           </Button>
           <Button
             type="primary"
-            onClick={() => dispatch(removeOneTask(record._id))}
+            onClick={() => {
+              if (window.confirm("Вы точно хотите удалить упражение?"))
+                dispatch(removeOneTask(record._id))
+            }}
           >
             Удалить
           </Button>

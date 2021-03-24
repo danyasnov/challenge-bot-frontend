@@ -63,7 +63,10 @@ function Marathons() {
           </Button>
           <Button
             type="primary"
-            onClick={() => dispatch(removeOneMarathon(record._id))}
+            onClick={() => {
+              if (window.confirm("Вы точно хотите удалить марафон?"))
+                dispatch(removeOneMarathon(record._id))
+            }}
           >
             Удалить
           </Button>

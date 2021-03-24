@@ -74,6 +74,16 @@ function Users() {
       },
     },
     {
+      title: "Обновлен",
+      dataIndex: "updated_at",
+      key: "updated_at",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => new Date(a.updated_at) - new Date(b.updated_at),
+      render: (text, record) => (
+        <div>{moment(text).format("YYYY-MM-DD HH:mm:ss")}</div>
+      ),
+    },
+    {
       title: "Действия",
       dataIndex: "",
       key: "x",
@@ -91,7 +101,10 @@ function Users() {
           </Button>
           <Button
             type="primary"
-            onClick={() => dispatch(removeOneUser(record._id))}
+            onClick={() => {
+              if (window.confirm("Вы точно хотите удалить пользователя?"))
+                dispatch(removeOneUser(record._id))
+            }}
           >
             Удалить
           </Button>
