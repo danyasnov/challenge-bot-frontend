@@ -13,6 +13,7 @@ import {
   updateOneUser,
 } from "./userSlice"
 import { selectMarathon } from "../marathons/marathonSlice"
+import { foodGroupsDict } from "../utils"
 
 function Users() {
   const [showModal, setShowModal] = useState(false)
@@ -24,6 +25,7 @@ function Users() {
 
   const onSave = (values) => {
     const data = {
+      ...values,
       marathons: values.marathons.map((m) => ({
         id: m,
         progress: moment(marathonsEntities[m].range[0]).subtract(1, "days"),
@@ -60,6 +62,13 @@ function Users() {
         <div>{[record.username, record.id].join(" - ")}</div>
       ),
     },
+    {
+      title: "Группа питания",
+      dataIndex: "foodGroup",
+      key: "foodGroup",
+      render: (text, record) => <div>{foodGroupsDict[record.foodGroup]}</div>,
+    },
+
     {
       title: "Подтвержденный участник",
       dataIndex: "approved",

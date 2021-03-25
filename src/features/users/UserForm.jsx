@@ -5,25 +5,10 @@ import { Line } from "@ant-design/charts"
 import moment from "moment"
 import axios from "axios"
 import { selectMarathon } from "../marathons/marathonSlice"
+import { foodGroupsDict, measureKeyDict } from "../utils"
 
 const { Option } = Select
-const keyDict = {
-  age: "Возраст",
-  chest: "Грудь",
-  height: "Рост",
-  leftHipCoverage: "Левая нога",
-  narrowWaist: "Узкое место талии",
-  pelvis: "Таз",
-  rightHipCoverage: "Правая нога",
-  weight: "Вес",
-  wideWaist: "Широкое место талии",
-}
-const photoKeyDict = {
-  backPhotoUrl: "Сзади",
-  frontPhotoUrl: "Спереди",
-  leftPhotoUrl: "Слева",
-  rightPhotoUrl: "Справа",
-}
+
 const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
   const [form] = Form.useForm()
   const ref = useRef()
@@ -31,6 +16,7 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
 
   const marathons = useSelector(selectMarathon.selectAll)
   const initial = {
+    ...item,
     marathons: item.marathons.map((m) => m.id),
   }
 
@@ -47,10 +33,10 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
   const data = item.measurements.reduce((acc, val) => {
     const nextM = []
     Object.entries(val).forEach(([key, value]) => {
-      if (keyDict[key]) {
+      if (measureKeyDict[key]) {
         nextM.push({
           value,
-          category: keyDict[key],
+          category: measureKeyDict[key],
           date: moment(val.created_at).format("YYYY-MM-DD HH:mm:ss"),
         })
       }
@@ -116,6 +102,24 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
               {marathons.map((m) => (
                 <Option value={m._id} key={m._id}>
                   {m.title}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item label="Группа питания" name="foodGroup">
+            <Select
+              allowClear
+              style={{ width: "100%" }}
+              placeholder="Выберите группу питания"
+              onChange={(v) =>
+                form.setFieldsValue({
+                  foodGroup: v,
+                })
+              }
+            >
+              {Object.keys(foodGroupsDict).map((key) => (
+                <Option value={key} key={key}>
+                  {foodGroupsDict[key]}
                 </Option>
               ))}
             </Select>

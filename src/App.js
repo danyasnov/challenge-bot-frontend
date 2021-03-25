@@ -10,6 +10,8 @@ import { fetchTasks } from "./features/tasks/taskSlice"
 import { fetchMarathons } from "./features/marathons/marathonSlice"
 import Users from "./features/users/Users"
 import { fetchUsers } from "./features/users/userSlice"
+import { fetchRations } from "./features/rations/rationSlice"
+import Rations from "./features/rations/Rations"
 
 const { Content, Sider } = Layout
 
@@ -21,11 +23,13 @@ function App() {
     dispatch(fetchTasks())
     dispatch(fetchMarathons())
     dispatch(fetchUsers())
+    dispatch(fetchRations())
   }, [dispatch])
   const routerDict = {
     "/marathons": "1",
     "/tasks": "2",
     "/users": "3",
+    "/rations": "4",
   }
   if (location.pathname === "/") return <Redirect to="/marathons" noThrow />
   return (
@@ -44,6 +48,9 @@ function App() {
               <Menu.Item key="2">
                 <Link to="tasks">Упражнения</Link>
               </Menu.Item>
+              <Menu.Item key="4">
+                <Link to="rations">Рационы</Link>
+              </Menu.Item>
               <Menu.Item key="3">
                 <Link to="users">Пользователи</Link>
               </Menu.Item>
@@ -54,6 +61,7 @@ function App() {
               <Marathons path="marathons" />
               <Tasks path="tasks" />
               <Users path="users" />
+              <Rations path="rations" />
             </Router>
           </Content>
         </Layout>
