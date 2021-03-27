@@ -3,6 +3,7 @@ import { Layout, Table, Button } from "antd"
 import { PlusOutlined } from "@ant-design/icons"
 import { pick } from "lodash"
 import { useDispatch, useSelector } from "react-redux"
+import moment from "moment"
 import MarathonForm from "./MarathonForm"
 import {
   addOneMarathon,
@@ -19,7 +20,13 @@ function Marathons() {
   const [item, setItem] = useState()
 
   const onSave = (values) => {
-    const data = pick(values, ["title", "description", "events", "range"])
+    const data = {
+      ...pick(values, ["title", "description", "events", "range"]),
+      events: values.events.sort(
+        (a, b) => moment(a.date).valueOf() - moment(b.date).valueOf()
+      ),
+    }
+
     const promise = item
       ? dispatch(updateOneMarathon({ ...data, _id: item._id }))
       : dispatch(addOneMarathon(data))
