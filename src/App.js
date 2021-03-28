@@ -1,9 +1,11 @@
 import React, { useEffect } from "react"
+import "moment/locale/ru"
 import "./App.css"
 import "antd/dist/antd.css"
 import { Layout, Menu } from "antd"
 import { Link, Router, useLocation, Redirect } from "@reach/router"
 import { useDispatch } from "react-redux"
+import moment from "moment"
 import Tasks from "./features/tasks/Tasks"
 import Marathons from "./features/marathons/Marathons"
 import { fetchTasks } from "./features/tasks/taskSlice"
@@ -13,6 +15,7 @@ import { fetchUsers } from "./features/users/userSlice"
 import { fetchRations } from "./features/rations/rationSlice"
 import Rations from "./features/rations/Rations"
 
+moment.locale("ru")
 const { Content, Sider } = Layout
 
 function App() {
