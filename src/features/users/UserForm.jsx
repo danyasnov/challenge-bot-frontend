@@ -52,7 +52,7 @@ const UserForm = ({ visible, onSave, onCancel, isLoading, item = {} }) => {
         <Row gutter={[16, 16]}>
           {val.items.map((url) => (
             <Col span={6}>
-              <Image width={150} key={url} src={url} />
+              <Image width={150} key={url} src={url} crossorigin="anonymous" />
             </Col>
           ))}
         </Row>
